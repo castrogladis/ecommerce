@@ -8,11 +8,24 @@ import "./style.css"
 function CheckoutSideMenu() {
   const context = useContext(ShoppingCartContext) //lee el estado global
 
-  //Remove my order, elimniar orden
+  //Remove my order, elimninar orden
   const handleDelete = (id) => {
     const filtereProduct =  context.cartProducts.filter(product => product.id != id ) //retornando la misma lista que ya tenemmos en el carrito sin los que coinciden con el id
     context.setCartProducts(filtereProduct)//modificamos cartProducts y le enviamos los elementos filtrados
   }
+
+  const handleCheckout = () => {
+    const orderToAdd = {
+      date: "23.05.2024",
+      products: context.cartProducts,
+      totalProducts: context.cartProducts.length,
+      totalPrice: totalPrice(context.cartProducts)
+    }
+
+    context.setOrder([...context.order, orderToAdd])
+    context.setCartProducts([])
+    context.setCount(0)
+  } 
 
   return (
     <aside className={`${context.isChekoutSideMenu ? "flex" : "hidden"} checkout-side-menu bg-white  flex-col fixed right-0 border border-black rounded-lg`}>
@@ -24,7 +37,7 @@ function CheckoutSideMenu() {
           ></XMarkIcon>
         </button>
       </div>
-      <div className='px-4 overflow-y-scroll'>
+      <div className='px-4 overflow-y-scroll flex-1'>
       {
         context.cartProducts.map(product => (
           <OrderCard
@@ -38,11 +51,14 @@ function CheckoutSideMenu() {
         ))
       }
       </div> 
-      <div className='px-4'>
-        <p className='flex justify-between items-center'>
+      <div className='px-4 mb-4'>
+        <p className='flex justify-between items-center mb-4'>
           <span className='font-light'>Total:</span>
           <span className='font-medium text-2xl'>${totalPrice(context.cartProducts)}</span>
         </p>
+        <button 
+        className='w-full bg-black py-3 text-white rounded-lg'
+        onClick={() =>handleCheckout()}>Ckeckout</button>
       </div>
     </aside>
   )
