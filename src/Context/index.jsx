@@ -22,6 +22,9 @@ function ShoppingCartProvider ({children}) {
      const openChekoutSideMenu = () => setIsChekoutSideMenu(true);
      const closeChekoutSideMenu = () => setIsChekoutSideMenu(false)
 
+       //Shopping Cart, Order
+    const [order, setOrder] = useState([]);
+
     return (
         <ShoppingCartContext.Provider
         value={
@@ -37,8 +40,9 @@ function ShoppingCartProvider ({children}) {
             isChekoutSideMenu,
             openChekoutSideMenu,
             closeChekoutSideMenu,
-        }
-            }>
+            order,
+            setOrder,
+        }}>
             {children} 
         </ShoppingCartContext.Provider>
     )
