@@ -1,34 +1,43 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 import Layout from "../../Components/Layout";
+import { ShoppingCartContext } from "../../Context";
 import Card from "../../Components/Card";
 import ProductDetail from "../../Components/ProductDetail";
 
 
 function Home() {
-  const [items, setItems] = useState([]);
+  const context = useContext(ShoppingCartContext)
 
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then(res => res.json())
-      .then(data => {
-        console.log(data); // Verifica la estructura de los datos aquí
-        setItems(data);
-      })
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
+  const renderView = () => {
+    if (context.filteredItems?.length > 0) {
+        return (
+          context.filteredItems?.map(item => (
+            <Card key={item.id} data={item} />
+          ))
+        )
+      }else {
+        return (
+          <div>There is no coincidence</div>
+        )
+      }
+    } 
+  
+
 
   return (
     <Layout>
-      Home
-      <div className="grid gap-3 grid-cols-3 w-full max-w-screen-lg">
-      {items.length > 0 ? (
-        items.map(item => (
-          <Card key={item.id} data={item} />
-        ))
-      ) : (
-        <p>Loading items...</p>
-      )}
+      <div className="w-80 flex relative justify-center items-center">
+        <h1 className="font-medium text-xl">Home</h1>
       </div>
+      <input
+        className="absolute right-0 mr-2 mt-1 w-60 p-2 rounded-lg border border-black focus:outline-none"
+        type="text" placeholder="Search a product"
+        onChange={(event) => context.setSearchByTitle(event.target.value)} />
+    
+        <div className="grid gap-3 grid-cols-3 w-full max-w-screen-lg">
+          {renderView()}
+        </div>
+      
       <ProductDetail />
     </Layout>
   );

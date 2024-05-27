@@ -1,7 +1,9 @@
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { ShoppingCartContext } from '../../Context';
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { totalPrice } from '../../utils';
+import { totalPrice } from '../../utils/totalPrice';
+import { getCurrentDate } from '../../utils/date';
 import OrderCard from "../OrderCard"
 import "./style.css"
 
@@ -16,7 +18,7 @@ function CheckoutSideMenu() {
 
   const handleCheckout = () => {
     const orderToAdd = {
-      date: "23.05.2024",
+      date: getCurrentDate,
       products: context.cartProducts,
       totalProducts: context.cartProducts.length,
       totalPrice: totalPrice(context.cartProducts)
@@ -37,13 +39,13 @@ function CheckoutSideMenu() {
           ></XMarkIcon>
         </button>
       </div>
-      <div className='px-4 overflow-y-scroll flex-1'>
+      <div className='px-4 overflow-y-scroll overflow-x-hidden flex-1'>
       {
         context.cartProducts.map(product => (
           <OrderCard
             key={product.id}
             id={product.id} //eliminar la orden
-            title={product.title} 
+            category={product.category} 
             imageUrl={product.image}
             price={product.price}
             handleDelete={handleDelete}
@@ -56,9 +58,16 @@ function CheckoutSideMenu() {
           <span className='font-light'>Total:</span>
           <span className='font-medium text-2xl'>${totalPrice(context.cartProducts)}</span>
         </p>
-        <button 
+        <Link to="/my-orders/last" >
+          <button 
         className='w-full bg-black py-3 text-white rounded-lg'
-        onClick={() =>handleCheckout()}>Ckeckout</button>
+        onClick={() =>{
+          handleCheckout()
+          context.closeChekoutSideMenu()
+        }}>Ckeckout
+          </button>
+        </Link>
+        
       </div>
     </aside>
   )

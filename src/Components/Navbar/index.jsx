@@ -13,38 +13,58 @@ function Navbar() {
       <ul className="flex items-center gap-3">
       <li className="font-bold text-lg">
         <NavLink 
-          to="/">
+          to="/"
+          onClick={() => {context.setSearchByCategory()
+            // context.setSearchBytitle("");
+          }}>
           Home
         </NavLink>
       </li>
       <li>
-        <NavLink to="/all" className={({ isActive }) => isActive ? activeStyle : undefined}>
+        <NavLink to="/all"
+         onClick={() => {context.setSearchByCategory()
+          // context.setSearchBytitle("");
+         }}
+         className={({ isActive }) => isActive ? activeStyle : undefined}>
           All
         </NavLink>
       </li>
       <li>
-        <NavLink to="/padded" className={({ isActive }) => isActive ? activeStyle : undefined}>
-          Padded
+        <NavLink to="/men's-clothing"
+        onClick={() => {context.setSearchByCategory("men's clothing")
+        // context.setSearchBytitle("");
+        } }
+        
+        className={({ isActive }) => isActive ? activeStyle : undefined}>
+        Men
         </NavLink>
       </li>
       <li>
-        <NavLink to="/curtains" className={({ isActive }) => isActive ? activeStyle : undefined}>
-          Curtains
+        <NavLink to="/jewelery" 
+        onClick={() => {context.setSearchByCategory("jewelery")
+        // context.setSearchBytitle("");
+        }}
+        className={({ isActive }) => isActive ? activeStyle : undefined}>
+        Jewelry
         </NavLink>
       </li>
       <li>
-        <NavLink to="/bedsheets" className={({ isActive }) => isActive ? activeStyle : undefined}>
-          Bed Sheets
+        <NavLink to="/electronics" 
+        onClick={() => {
+          context.setSearchByCategory("electronics")
+          // context.setSearchBytitle("");
+        }}
+        className={({ isActive }) => isActive ? activeStyle : undefined}>
+        Electronics
         </NavLink>
       </li>
       <li>
-        <NavLink to="/decor" className={({ isActive }) => isActive ? activeStyle : undefined}>
-          Decor
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="/others" className={({ isActive }) => isActive ? activeStyle : undefined}>
-          Others
+        <NavLink to="/women's-clothing" 
+        onClick={() => {context.setSearchByCategory("women's clothing")
+        // context.setSearchBytitle("");
+        }}
+        className={({ isActive }) => isActive ? activeStyle : undefined}>
+          Women
         </NavLink>
       </li>
       </ul>

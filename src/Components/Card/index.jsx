@@ -53,13 +53,13 @@ function Card({ data }) {
         </span>
         <img
           referrerPolicy="no-referrer"
-          className="w-full h-full object-cover rounded-lg"
+          className="w-full h-full  object-contain rounded-lg"
           src={data.image}
           alt={data.category}
         />
         {renderIcon(data.id)}
       </figure>
-      <p className="flex justify-between truncate">
+      <p className="flex justify-between overflow-hidden text-ellipsis whitespace-nowrap">
         <span className="text-sm font-light">{data.category}</span>
         <span className="text-sm font-medium">${data.price}</span>
       </p>

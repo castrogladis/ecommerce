@@ -18,7 +18,7 @@ function ProductDetail() {
         </button>
       </div>
 
-      <figure className='px-5'>
+      <figure className='w-40 h-50 flex justify-center object-cover px-5'>
         <img
           className=' w-full h-full rounded-lg object-cover'
           src={context.productToShow.image}
@@ -27,7 +27,7 @@ function ProductDetail() {
       <p className='flex flex-col p-4'>
         <span className='font-medium text-2xl mb-2'>${context.productToShow.price}</span>
         <span className='font-medium text-md'>{context.productToShow.title}</span>
-        <span className='font-light text-sm  '>{context.productToShow.description}</span>
+        <span className='font-light text-sm overflow-hidden text-ellipsis'>{context.productToShow.description}</span>
       </p>
     </aside>
   )
